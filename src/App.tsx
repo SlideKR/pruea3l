@@ -1,198 +1,186 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [activeMenu, setActiveMenu] = useState('home')
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activePage, setActivePage] = useState('home')
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen)
-  }
-
-  const handleNavClick = (page: string) => {
-    setActivePage(page)
+  const handleMenuClick = (menu: string) => {
+    setActiveMenu(menu)
     setMenuOpen(false)
   }
 
   return (
-    <>
-      {/* HEADER Y MENÚ */}
-      <header className="app-header">
-        <div className="header-container">
-          <div className="logo-brand">
-            <h1>Vite + React</h1>
+    <div className="app">
+      {/* HEADER */}
+      <header className="header">
+        <div className="header-content">
+          <div className="logo">
+            <img src={viteLogo} alt="Vite" className="logo-img" />
+            <span className="plus">+</span>
+            <img src={reactLogo} alt="React" className="logo-img" />
           </div>
-          <button className="menu-toggle" onClick={toggleMenu}>
-            ☰
+          <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
+            <span></span>
+            <span></span>
+            <span></span>
           </button>
         </div>
-        <nav className={`navbar ${menuOpen ? 'open' : ''}`}>
-          <ul className="nav-list">
-            <li><button className={`nav-link ${activePage === 'home' ? 'active' : ''}`} onClick={() => handleNavClick('home')}>Home</button></li>
-            <li><button className={`nav-link ${activePage === 'docs' ? 'active' : ''}`} onClick={() => handleNavClick('docs')}>Documentation</button></li>
-            <li><button className={`nav-link ${activePage === 'social' ? 'active' : ''}`} onClick={() => handleNavClick('social')}>Community</button></li>
-            <li><button className={`nav-link ${activePage === 'about' ? 'active' : ''}`} onClick={() => handleNavClick('about')}>About</button></li>
-          </ul>
-        </nav>
       </header>
 
+      {/* NAVEGACIÓN */}
+      <nav className={`navbar ${menuOpen ? 'active' : ''}`}>
+        <ul className="nav-links">
+          <li><button className={`nav-item ${activeMenu === 'home' ? 'active' : ''}`} onClick={() => handleMenuClick('home')}>Inicio</button></li>
+          <li><button className={`nav-item ${activeMenu === 'services' ? 'active' : ''}`} onClick={() => handleMenuClick('services')}>Servicios</button></li>
+          <li><button className={`nav-item ${activeMenu === 'about' ? 'active' : ''}`} onClick={() => handleMenuClick('about')}>Acerca de</button></li>
+          <li><button className={`nav-item ${activeMenu === 'contact' ? 'active' : ''}`} onClick={() => handleMenuClick('contact')}>Contacto</button></li>
+        </ul>
+      </nav>
+
       {/* CONTENIDO PRINCIPAL */}
-      <div className="app-background">
-        {activePage === 'home' && (
-          <>
-            <section id="center">
-              <div className="hero">
-                <img src={heroImg} className="base" width="170" height="179" alt="" />
-                <img src={reactLogo} className="framework" alt="React logo" />
-                <img src={viteLogo} className="vite" alt="Vite logo" />
+      <main className="main-content">
+        {/* HOME */}
+        {activeMenu === 'home' && (
+          <section className="section home-section">
+            <div className="container">
+              <h1 className="title">Bienvenido a Vite + React</h1>
+              <p className="subtitle">Una forma rápida y moderna de construir aplicaciones web</p>
+              <div className="features">
+                <div className="feature-card">
+                  <h3>⚡ Rápido</h3>
+                  <p>Desarrollo instantáneo con HMR (Hot Module Replacement)</p>
+                </div>
+                <div className="feature-card">
+                  <h3>🎯 Eficiente</h3>
+                  <p>Optimizado para el máximo rendimiento en producción</p>
+                </div>
+                <div className="feature-card">
+                  <h3>🚀 Moderno</h3>
+                  <p>Utiliza las últimas tecnologías web</p>
+                </div>
               </div>
-              <div>
-                <h1>Get started</h1>
-                <p>
-                  Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-                </p>
-              </div>
-              <button
-                type="button"
-                className="counter"
-                onClick={() => setCount((count) => count + 1)}
-              >
-                Count is {count}
-              </button>
-            </section>
-
-            <div className="ticks"></div>
-
-            <section id="next-steps">
-              <div id="docs">
-                <svg className="icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#documentation-icon"></use>
-                </svg>
-                <h2>Documentation</h2>
-                <p>Your questions, answered</p>
-                <ul>
-                  <li>
-                    <a href="https://vite.dev/" target="_blank">
-                      <img className="logo" src={viteLogo} alt="" />
-                      Explore Vite
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://react.dev/" target="_blank">
-                      <img className="button-icon" src={reactLogo} alt="" />
-                      Learn more
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <div id="social">
-                <svg className="icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#social-icon"></use>
-                </svg>
-                <h2>Connect with us</h2>
-                <p>Join the Vite community</p>
-                <ul>
-                  <li>
-                    <a href="https://github.com/vitejs/vite" target="_blank">
-                      <svg
-                        className="button-icon"
-                        role="presentation"
-                        aria-hidden="true"
-                      >
-                        <use href="/icons.svg#github-icon"></use>
-                      </svg>
-                      GitHub
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://chat.vite.dev/" target="_blank">
-                      <svg
-                        className="button-icon"
-                        role="presentation"
-                        aria-hidden="true"
-                      >
-                        <use href="/icons.svg#discord-icon"></use>
-                      </svg>
-                      Discord
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://x.com/vite_js" target="_blank">
-                      <svg
-                        className="button-icon"
-                        role="presentation"
-                        aria-hidden="true"
-                      >
-                        <use href="/icons.svg#x-icon"></use>
-                      </svg>
-                      X.com
-                    </a>
-                  </li>
-                  <li>
-                    <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                      <svg
-                        className="button-icon"
-                        role="presentation"
-                        aria-hidden="true"
-                      >
-                        <use href="/icons.svg#bluesky-icon"></use>
-                      </svg>
-                      Bluesky
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <div className="ticks"></div>
-            <section id="spacer"></section>
-          </>
-        )}
-
-        {activePage === 'docs' && (
-          <section className="page-section docs-page">
-            <h2>Documentation</h2>
-            <p>Learn more about Vite and React</p>
-            <ul className="docs-list">
-              <li><a href="https://vite.dev/" target="_blank">Vite Documentation</a></li>
-              <li><a href="https://react.dev/" target="_blank">React Documentation</a></li>
-            </ul>
-          </section>
-        )}
-
-        {activePage === 'social' && (
-          <section className="page-section social-page">
-            <h2>Join Our Community</h2>
-            <p>Connect with developers around the world</p>
-            <div className="social-links">
-              <a href="https://github.com/vitejs/vite" target="_blank" className="social-card">GitHub</a>
-              <a href="https://chat.vite.dev/" target="_blank" className="social-card">Discord</a>
-              <a href="https://x.com/vite_js" target="_blank" className="social-card">X.com</a>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank" className="social-card">Bluesky</a>
             </div>
           </section>
         )}
 
-        {activePage === 'about' && (
-          <section className="page-section about-page">
-            <h2>About Vite + React</h2>
-            <p>Build fast and modern web applications with Vite and React</p>
-            <div className="about-content">
-              <h3>Why Vite?</h3>
-              <ul>
-                <li>⚡ Lightning fast HMR (Hot Module Replacement)</li>
-                <li>📦 Optimized production builds</li>
-                <li>🎯 Framework agnostic</li>
-              </ul>
+        {/* SERVICIOS */}
+        {activeMenu === 'services' && (
+          <section className="section services-section">
+            <div className="container">
+              <h1 className="title">Nuestros Servicios</h1>
+              <div className="services-grid">
+                <div className="service-item">
+                  <div className="service-icon">📦</div>
+                  <h3>Build Optimizado</h3>
+                  <p>Compilación rápida y eficiente para producción</p>
+                </div>
+                <div className="service-item">
+                  <div className="service-icon">🔥</div>
+                  <h3>HMR Instantáneo</h3>
+                  <p>Recarga de módulos en tiempo real durante el desarrollo</p>
+                </div>
+                <div className="service-item">
+                  <div className="service-icon">🎨</div>
+                  <h3>Soporte CSS</h3>
+                  <p>Manejo completo de estilos CSS y preprocesadores</p>
+                </div>
+                <div className="service-item">
+                  <div className="service-icon">🔌</div>
+                  <h3>Plugins</h3>
+                  <p>Sistema extensible con plugins personalizados</p>
+                </div>
+              </div>
             </div>
           </section>
         )}
-      </div>
-    </>
+
+        {/* ACERCA DE */}
+        {activeMenu === 'about' && (
+          <section className="section about-section">
+            <div className="container">
+              <h1 className="title">Acerca de Vite + React</h1>
+              <div className="about-content">
+                <div className="about-text">
+                  <h2>¿Qué es Vite?</h2>
+                  <p>
+                    Vite es una herramienta de construcción frontend que tiene como objetivo proporcionar una experiencia de desarrollo más rápida y ágil. Consta de dos partes principales:
+                  </p>
+                  <ul className="about-list">
+                    <li>Un servidor de desarrollo que ofrece mejoras ricas de características sobre los módulos ES nativos</li>
+                    <li>Un comando de compilación que agrupa tu código con Rollup</li>
+                  </ul>
+                </div>
+                <div className="about-text">
+                  <h2>React con Vite</h2>
+                  <p>
+                    React es una biblioteca JavaScript para construir interfaces de usuario con componentes reutilizables. Cuando se combina con Vite, obtienes una configuración de desarrollo extremadamente rápida y eficiente.
+                  </p>
+                  <ul className="about-list">
+                    <li>Componentes funcionales y hooks</li>
+                    <li>Estado reactivo y actualización rápida</li>
+                    <li>Desarrollo sin configuración</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* CONTACTO */}
+        {activeMenu === 'contact' && (
+          <section className="section contact-section">
+            <div className="container">
+              <h1 className="title">Contacto</h1>
+              <div className="contact-wrapper">
+                <form className="contact-form">
+                  <div className="form-group">
+                    <label htmlFor="name">Nombre</label>
+                    <input type="text" id="name" placeholder="Tu nombre" />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" placeholder="Tu email" />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="message">Mensaje</label>
+                    <textarea id="message" placeholder="Tu mensaje" rows={5}></textarea>
+                  </div>
+                  <button type="submit" className="submit-btn">Enviar</button>
+                </form>
+                <div className="contact-info">
+                  <div className="info-item">
+                    <h3>📧 Email</h3>
+                    <p>info@vitereact.com</p>
+                  </div>
+                  <div className="info-item">
+                    <h3>📱 Teléfono</h3>
+                    <p>+1 (555) 123-4567</p>
+                  </div>
+                  <div className="info-item">
+                    <h3>📍 Ubicación</h3>
+                    <p>San Francisco, CA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="footer-content">
+          <p>&copy; 2024 Vite + React. Todos los derechos reservados.</p>
+          <div className="footer-links">
+            <a href="https://vitejs.dev" target="_blank" rel="noopener noreferrer">Vite</a>
+            <a href="https://react.dev" target="_blank" rel="noopener noreferrer">React</a>
+          </div>
+        </div>
+      </footer>
+    </div>
   )
 }
 
