@@ -13,7 +13,7 @@ const defaultCanchas = [
 export default function Gestion(){
   const [canchas] = useState(defaultCanchas);
   const [reservas, setReservas] = useState({});
-  const [formFor, setFormFor] = useState(null); // cancha object para reservar
+  const [formFor, setFormFor] = useState(null); // {court, editingId?}
 
   // useEffect justificado: persistencia de reservas en Local Storage
   useEffect(()=>{
@@ -24,11 +24,20 @@ export default function Gestion(){
   // guarda cada vez que cambian las reservas
   useEffect(()=>{ saveReservas(reservas); }, [reservas]);
 
-  function handleReserve(court){ setFormFor(court); }
+  function handleReserve(court){ setFormFor({court}); }
+
+  function handleEdit(id){
+    const court = canchas.find(c=>c.id === id);
+    if(!court) return;
+    const initialData = reservas[id] ? { ...reservas[id] } : {};
+    setFormFor({court, editingId: id, initialData});
+  }
 
   function handleSaveReserva(data){
     // data: {nombre, hora, telefono}
-    setReservas(prev => ({ ...prev, [formFor.id]: { ...data, createdAt: new Date().toISOString() } }));
+    const id = formFor?.court?.id;
+    if(!id) return;
+    setReservas(prev => ({ ...prev, [id]: { ...data, updatedAt: new Date().toISOString() } }));
     setFormFor(null);
   }
 
@@ -44,9 +53,15 @@ export default function Gestion(){
   return (
     <section>
       <h2>Gestión de reservas</h2>
-      <p>Crear, listar, editar (re-crear) y eliminar reservas. Persisten al F5 via Local Storage.</p>
-      {formFor && <CourtForm initialData={{}} onSave={handleSaveReserva} onClose={()=>setFormFor(null)} />}
-      <CourtList canchas={canchas} reservas={reservas} onReserve={handleReserve} onCancel={handleCancel} />
+      <p>Crear, listar, editar y eliminar reservas. Persisten al F5 via Local Storage.</p>
+      {formFor && (
+        <CourtForm
+          initialData={formFor.initialData || {}}
+          onSave={handleSaveReserva}
+          onClose={()=>setFormFor(null)}
+        />
+      )}
+      <CourtList canchas={canchas} reservas={reservas} onReserve={handleReserve} onCancel={handleCancel} onEdit={handleEdit} />
     </section>
   );
 }

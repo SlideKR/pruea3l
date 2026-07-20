@@ -12,11 +12,12 @@ Abrir http://localhost:5173
 
 Qué implementa
 - Vite + React
-- React Router (Inicio, Gestión, Datos externos)
+- React Router (Inicio, Gestión, Datos externos) + ejercicios extra de useEffect y Router
 - Componentes reutilizables: Navbar, CourtCard, CourtList, CourtForm
-- CRUD de reservas persistente en Local Storage
+- CRUD de reservas persistente en Local Storage (crear, editar, eliminar)
 - Consumo de API con fetch y manejo de estados: cargando, datos, error
 - Validación de formulario y confirmación antes de eliminar
+- Código semantic HTML (header, nav, main, section, footer); CSS con Grid/Flexbox
 
 Uso de IA
 En este proyecto utilicé herramientas de IA (ChatGPT) para:
@@ -27,3 +28,12 @@ Qué aprendí: cómo integrar un hook de fetch con manejo de errores, cómo just
 Notas para el docente
 - URL de la API en código: src/pages/DatosExternos.jsx -> const API_URL = 'http://127.0.0.1:8000/api/canchas'
 - Los commits muestran el historial de trabajo (no un solo commit final).
+
+Ejercicios extra (Semana 8)
+- Ejercicio useEffect: /extras/useeffect (timer que actualiza título con useEffect)
+- Ejercicio React Router: /extras/router (rutas y parámetros dinámicos)
+
+Probar la API y frontend
+- Ejecutar backend: cd backend && pip install -r requirements.txt && uvicorn main:app --host 0.0.0.0 --port 8000
+- Ejecutar frontend: npm install && npm run dev
+

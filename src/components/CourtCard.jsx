@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CourtCard({court, onReserve, onCancel, reservation}){
+export default function CourtCard({court, onReserve, onCancel, onEdit, reservation}){
   // court: {id, nombre, tipo, ubicacion}
   return (
     <article className="card" aria-labelledby={`court-${court.id}`}>
@@ -9,7 +9,10 @@ export default function CourtCard({court, onReserve, onCancel, reservation}){
       {reservation ? (
         <>
           <p><strong>Reservado por:</strong> {reservation.nombre} — {reservation.hora}</p>
-          <button className="btn secondary" onClick={()=>onCancel(court.id)}>Cancelar</button>
+          <div style={{display:'flex', gap:8}}>
+            <button className="btn" onClick={()=>onEdit && onEdit(court.id)}>Editar</button>
+            <button className="btn secondary" onClick={()=>onCancel(court.id)}>Cancelar</button>
+          </div>
         </>
       ) : (
         <button className="btn" onClick={()=>onReserve(court)}>Reservar</button>

@@ -7,6 +7,8 @@ export default function Navbar(){
       <NavLink to="/" end className={({isActive})=>isActive?'active':''}>Inicio</NavLink>
       <NavLink to="/gestion" className={({isActive})=>isActive?'active':''}>Gestión</NavLink>
       <NavLink to="/datos-externos" className={({isActive})=>isActive?'active':''}>Datos externos</NavLink>
+      <NavLink to="/extras/useeffect" className={({isActive})=>isActive?'active':''}>Ejercicio useEffect</NavLink>
+      <NavLink to="/extras/router" className={({isActive})=>isActive?'active':''}>Ejercicio Router</NavLink>
     </nav>
   );
 }
